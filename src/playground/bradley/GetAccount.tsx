@@ -1,6 +1,6 @@
 import { useState } from "react";
 
- function GetAccount(){
+export default function GetAccount(){
 
         const urlBase = "https://695f03af7f037703a8128fbf.mockapi.io/api/v1/Account"
         let [accountID, setAccountID] = useState("")
@@ -13,7 +13,8 @@ import { useState } from "react";
 
     return (
         <>
-                <input placeholder="Input desired account ID"
+                <input 
+                    placeholder="Enter your account ID"
                     value={accountID}
                     onChange={(e) => setAccountID(e.target.value) }
                 ></input>
@@ -23,9 +24,11 @@ import { useState } from "react";
                     onClick={Submit}
                 > Submit </button>  
                               
-                {accountID ? (<p>{JSON.stringify(accountID)}</p>) : null}
+                <div>
+                    <p>
+                        {accountID ? (<pre>{JSON.stringify(accountID)}</pre>) : null}                
+                    </p>
+                </div>
         </>
     )
 }
-
-export default GetAccount

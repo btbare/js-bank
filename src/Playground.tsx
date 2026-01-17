@@ -4,7 +4,7 @@ import SheenaComponent2 from "./playground/sheena/Component2";
 import SheenaComponent3 from "./playground/sheena/Component3";
 
 import GetAccount from "./playground/bradley/GetAccount";
-import BradleyComponent2 from "./playground/bradley/Component2";
+import BradleyComponent2 from "./playground/bradley/Deposit";
 import BradleyComponent3 from "./playground/bradley/Component3";
 import GuidoComponent1 from "./playground/guido/Component1";
 import GuidoComponent2 from "./playground/guido/Component2";
