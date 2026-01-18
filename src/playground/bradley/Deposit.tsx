@@ -1,36 +1,56 @@
 import { useState } from "react"
 
-export default function BradleyComponent2() {
+//boy i should document more
+export default function Deposit() {
+    
         const urlBase = "https://695f03af7f037703a8128fbf.mockapi.io/api/v1/Account"
         let [accountID, setAccountID] = useState("")
         let [amount, setAmount] = useState("")
-        let [entered, setEntered] = useState(Boolean)
-        
-        var Submit = async function(){
+        let [entered, setEntered] = useState(false)
+        let [accountData, setAccountData] = useState<any>(null)
+
+        var GrabJson = async function(){
             let req = await fetch(urlBase+"/"+accountID)
-            let res = await req.json()
+                let res = await req.json()
+            setAccountData(res)
             return res
         }
 
         var SubmitAccountID = async function () {
-            let res = await Submit()
+            let res = await GrabJson()
+            setAccountData(res)
             setAccountID(res.id)
             setEntered(true)
         }
 
-        var SubmitBalance = async function (amount: any) {
-            let res = await Submit()
-            setAmount(res.balance += Number(amount))
-            setEntered(true)
+        var SubmitBalance = async function () {
+
+            if(Number(amount) > 0){
+
+                let res = await GrabJson()
+
+                let newBalance = Number(res.balance) + Number(amount)
+
+                await fetch(urlBase + "/" + accountID, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json"},
+                    body: JSON.stringify({ balance : newBalance})
+                })
+                
+                setAccountData({...accountData, balance: newBalance})
+                setAmount("")
+                setEntered(true)
+            }
         }
 
         var Reset = async function() {
+            setAccountID("")
+            setAmount("")
             setEntered(false)
         }
 
     return (
         <>
-            
             {entered == false ? (
                 <div>
                 <input 
@@ -46,20 +66,27 @@ export default function BradleyComponent2() {
                 </div>
             ) :   
                 <div>
+
+                    {accountData ? (
+                        <p>
+                            Account ID: {accountData.id}<br/>
+                            Account Holder ID:  {accountData.AccountHolderId}<br/>
+                            Balance:    {accountData.balance}<br/>
+                        </p>) : null}
                 <input 
                     placeholder="Enter Deposit Amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                 ></input> 
-
+                <br/>
                 <button
                     type="button"
-                    onClick={SubmitBalance}
+                    onClick={() => SubmitBalance()}
                 > Submit Amount</button>
-                
+                <br/>
                 <button
                     type="button"
-                    onClick={Reset}
+                    onClick={() => Reset()}
                 > Can i have a Mulligan?</button>
                 
                 </div>       
