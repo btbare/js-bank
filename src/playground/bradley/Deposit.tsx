@@ -23,9 +23,8 @@ export default function Deposit() {
             setEntered(true)
         }
 
-        var SubmitBalance = async function () {
+        var SubmitDeposit = async function () {
 
-            if(Number(amount) > 0){
 
                 let res = await GrabJson()
 
@@ -40,7 +39,6 @@ export default function Deposit() {
                 setAccountData({...accountData, balance: newBalance})
                 setAmount("")
                 setEntered(true)
-            }
         }
 
         var Reset = async function() {
@@ -66,29 +64,26 @@ export default function Deposit() {
                 </div>
             ) :   
                 <div>
-
                     {accountData ? (
-                        <p>
-                            Account ID: {accountData.id}<br/>
-                            Account Holder ID:  {accountData.AccountHolderId}<br/>
-                            Balance:    {accountData.balance}<br/>
+                        <p><br/>Account ID: {accountData.id}<br/>Account Holder ID:  {accountData.AccountHolderId}<br/>Balance:    ${accountData.balance}
                         </p>) : null}
-                <input 
-                    placeholder="Enter Deposit Amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                ></input> 
-                <br/>
-                <button
-                    type="button"
-                    onClick={() => SubmitBalance()}
-                > Submit Amount</button>
-                <br/>
-                <button
-                    type="button"
-                    onClick={() => Reset()}
-                > Can i have a Mulligan?</button>
-                
+
+                    <input 
+                        placeholder="Enter Deposit Amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                    ></input> 
+                    <br/>
+
+                    <button
+                        type="button"
+                        onClick={() => SubmitDeposit()}
+                    > Submit Amount</button>
+                    <br/>
+                    <button
+                        type="button"
+                        onClick={() => Reset()}
+                    > Can i have a Mulligan?</button>
                 </div>       
             }
         </>
