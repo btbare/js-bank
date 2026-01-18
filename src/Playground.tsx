@@ -5,7 +5,7 @@ import SheenaComponent3 from "./playground/sheena/Component3";
 
 import GetAccount from "./playground/bradley/GetAccount";
 import Deposit from "./playground/bradley/Deposit";
-import BradleyComponent3 from "./playground/bradley/Component3";
+import Withdraw from "./playground/bradley/Withdraw";
 import GuidoComponent1 from "./playground/guido/Component1";
 import GuidoComponent2 from "./playground/guido/Component2";
 
@@ -50,7 +50,8 @@ export default function Playground() {
 
         <article>
           <header>Bradley Component 3</header>
-          <BradleyComponent3/> 
+          <h5>Withdraw</h5>
+          <Withdraw/> 
         </article>
 
       </div>
